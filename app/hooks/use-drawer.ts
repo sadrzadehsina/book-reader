@@ -1,12 +1,9 @@
-import { atom, useAtom } from 'jotai'
+import { atom, useAtom } from "jotai";
 
-const openAtom = atom<boolean>(false)
+const openAtom = atom<boolean>(false);
 
 export function useDrawer() {
-
-  const [open, setOpen] = useAtom(openAtom)
+  const [open, setOpen] = useAtom(openAtom);
 
   return [open, setOpen] as const;
-
 }
-
