@@ -2,18 +2,12 @@
 
 import ePub from "epubjs";
 
-export function renderBook(book) {
-  // const book = ePub(url);
-  // const rendition = book.renderTo(area);
-  // return rendition.display();
+type BookMeta = {
+  title: string;
 }
 
-export function extractMeta(book) {
-  return ePub(book);
-}
-
-export function parseBook(file) {
-  const book = ePub(file);
+export function parseBook(file: File): Promise<BookMeta> {
+  const book = ePub(file as unknown as ArrayBuffer);
 
   return new Promise((resolve, reject) => {
     book.loaded.metadata.then((metadata) => {

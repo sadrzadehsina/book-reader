@@ -1,4 +1,4 @@
-export function fileToBlob(file: File) {
+export function fileToBlob(file: File): Promise<Blob> {
   return new Promise((resolve) => {
     file.arrayBuffer().then((arrayBuffer) => {
       const blob = new Blob([new Uint8Array(arrayBuffer)], {

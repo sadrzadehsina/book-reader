@@ -15,18 +15,17 @@ export default function Home() {
 
   const { saveBook } = useDatabase();
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    parseBook(acceptedFiles[0]).then(console.log);
-    
-    const file = acceptedFiles[0];
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
 
-    const meta = await parseBook(file);
-    const blob = await fileToBlob(file);
+      const meta = await parseBook(file);
+      const blob = await fileToBlob(file);
 
-    await saveBook(meta.title, blob);
-
-    
-  }, [saveBook]);
+      await saveBook(meta.title, blob);
+    },
+    [saveBook]
+  );
 
   if (screen === "uploading") return <Dropzone onDrop={onDrop} />;
 

@@ -2,14 +2,26 @@
 
 import { createContext, useContext, ReactNode, useMemo } from "react";
 
-const DatabaseContext = createContext(null);
+type DatabaseContextType = {
+  saveBook: (id: string, file: Blob) => Promise<Blob>;
+  deleteBook: () => undefined;
+  queryBook: () => undefined;
+  updateBook: () => undefined;
+};
+
+const DatabaseContext = createContext<DatabaseContextType>({
+  saveBook: (id: string, file: Blob) => Promise.resolve(new Blob),
+  deleteBook: () => undefined,
+  queryBook: () => undefined,
+  updateBook: () => undefined,
+});
 
 import { database } from "../lib/database";
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const { saveBook, deleteBook, queryBook, updateBook } = database;
 
-  const state = useMemo(
+  const state = useMemo<DatabaseContextType>(
     () => ({
       saveBook,
       deleteBook,
