@@ -1,33 +1,24 @@
 "use client";
 
-import { useCallback } from "react";
 import { Dropzone } from "./components/dropzone";
 
-import { useShell } from "./hooks/use-shell";
+import { BooksList } from "./components/books-list";
+import { useBooks, useFetchBooks, useSaveBook } from "./hooks/use-shell";
+import { Box } from "@chakra-ui/react";
 
-import { fileToBlob } from "./utils";
+export default function Shell() {
+  const books = useBooks();
 
-import { useDatabase } from "./context/database";
-import { parseBook } from "./lib/epub";
+  const saveBook = useSaveBook();
 
-export default function Home() {
-  const { screen } = useShell();
+  useFetchBooks();
 
-  const { saveBook } = useDatabase();
-
-  const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
-      const file = acceptedFiles[0];
-
-      const meta = await parseBook(file);
-      const blob = await fileToBlob(file);
-
-      await saveBook(meta.title, blob);
-    },
-    [saveBook]
+  return (
+    <Box m="4">
+      <Dropzone onDrop={saveBook} />
+      <Box mt="4">
+        <BooksList books={books} />
+      </Box>
+    </Box>
   );
-
-  if (screen === "uploading") return <Dropzone onDrop={onDrop} />;
-
-  return <p>viewing book</p>;
 }

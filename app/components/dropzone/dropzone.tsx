@@ -10,7 +10,6 @@ export function Dropzone(props: DropzoneOptions) {
   return (
     <Box
       p="12"
-      m="4"
       border="2px"
       borderRadius="md"
       borderStyle="dashed"

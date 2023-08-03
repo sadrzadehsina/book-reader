@@ -1,14 +1,35 @@
 import { localforage } from "./local-forge";
 
 export const database = {
-  saveBook(bookId: string, book: Blob): Promise<Blob> {
+  saveBook(title: string, book: Blob): Promise<Blob> {
     return new Promise((resolve, reject) => {
-      localforage.setItem(bookId, book).then(resolve).catch(reject);
+      localforage.setItem(title, book).then(resolve).catch(reject);
     });
   },
 
-  queryBook() {
-    return undefined;
+  getBooks(): Promise<Object[]> {
+    return new Promise((resolve, reject) => {
+      const books: Object[] = [];
+      localforage
+        .iterate(function (value, key) {
+          books.push({
+            title: key,
+            blob: value,
+          });
+        })
+        .then(() => {
+          resolve(books);
+        });
+    });
+  },
+
+  queryBook(title: string): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      localforage
+        .getItem(title)
+        .then((book) => resolve(book as Blob))
+        .catch(reject);
+    });
   },
 
   deleteBook() {
