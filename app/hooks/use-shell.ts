@@ -7,7 +7,7 @@ import { useDatabase } from "@/app/context/database";
 
 import type { Book } from "../types/book";
 
-const screenAtom = atom<"uploading" | "reading">("uploading");
+const screenAtom = atom<"landing" | "reading">("landing");
 const bookAtom = atom<Book>(null as unknown as Book);
 const booksAtom = atom<Book[]>([]);
 

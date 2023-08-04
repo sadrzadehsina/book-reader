@@ -4,21 +4,16 @@ import ePub from "epubjs";
 
 import type { Book } from "../types/book";
 
-export function viewBook(area: HTMLElement, file: File): Promise<void> {
+export function viewBook(area: HTMLElement, book: ArrayBuffer): Promise<void> {
   return new Promise((resolve, reject) => {
-    // file.arrayBuffer().then((arrayBuffer) => {
-    const book = ePub(
-      "https://github.com/IDPF/epub3-samples/releases/download/20230704/accessible_epub_3.epub"
-    );
-    const rendition = book.renderTo(area, {
+    const rendition = ePub(book).renderTo(area, {
       flow: "scrolled-doc",
-      width: "700px",
-      height: "700px",
+      width: "100%",
+      height: "100%",
     });
     const displayed = rendition.display();
 
     displayed.then(resolve);
-    // });
   });
 }
 

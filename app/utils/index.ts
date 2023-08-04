@@ -8,3 +8,13 @@ export function fileToBlob(file: File): Promise<Blob> {
     });
   });
 }
+
+export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
+  return new Promise((resolve) => {
+    const fileReader = new FileReader();
+    fileReader.onload = function (event) {
+      resolve(event.target?.result as unknown as ArrayBuffer);
+    };
+    fileReader.readAsArrayBuffer(blob);
+  });
+}
