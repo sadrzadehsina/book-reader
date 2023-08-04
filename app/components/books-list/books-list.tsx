@@ -1,7 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Button, Card, CardBody, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Heading,
+  Text,
+  StackItem,
+  CardFooter,
+  CardHeader,
+} from "@chakra-ui/react";
 
 import type { Book } from "@/app/types/book";
 import { MouseEventHandler } from "react";
@@ -14,13 +23,15 @@ export function BooksList({
   onBookClick: MouseEventHandler;
 }) {
   return books.map((book) => (
-    <Button key={book.title} onClick={() => onBookClick(book)}>
-      <Card mt="4" backgroundColor="burlywood" color="black">
-        <CardBody>
-          <Image src={book.cover} alt={book.title} width={50} height={100} />
-          <Text>{book.title}</Text>
-        </CardBody>
+    <StackItem key={book.title} width="300px">
+      <Card mt="4">
+        <CardHeader>
+          <Heading size="md">{book.title}</Heading>
+        </CardHeader>
+        <CardFooter>
+          <Button colorScheme="twitter" onClick={() => onBookClick(book)}>Continue Reading</Button>
+        </CardFooter>
       </Card>
-    </Button>
+    </StackItem>
   ));
 }

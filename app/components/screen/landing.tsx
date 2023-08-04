@@ -4,7 +4,7 @@ import { useScreen, useFetchBooks, useSelectBook } from "@/app/hooks/use-shell";
 import { useBooks } from "@/app/hooks/use-shell";
 import { useSaveBook } from "@/app/hooks/use-shell";
 import { Book } from "@/app/types/book";
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { Dropzone } from "../dropzone";
 import { BooksList } from "../books-list";
@@ -31,9 +31,9 @@ export function Landing() {
   return (
     <Box m="4">
       <Dropzone onDrop={saveBook} />
-      <Box mt="4">
+      <HStack spacing="5" align="start">
         <BooksList books={books} onBookClick={selectBookAndOpenReading} />
-      </Box>
+      </HStack>
     </Box>
   );
 }
