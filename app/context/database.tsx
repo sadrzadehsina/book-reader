@@ -1,17 +1,19 @@
 "use client";
 
+import type { Book } from "../types/book";
+
 import { createContext, useContext, ReactNode, useMemo } from "react";
 
 type DatabaseContextType = {
-  saveBook: (title: string, file: Blob) => Promise<Blob>;
-  getBooks: () => Promise<Object[]>;
+  saveBook: (book: Book) => Promise<Blob>;
+  getBooks: () => Promise<Book[]>;
   queryBook: (title: string) => Promise<Blob>;
   deleteBook: () => undefined;
   updateBook: () => undefined;
 };
 
 const DatabaseContext = createContext<DatabaseContextType>({
-  saveBook: (title: string, file: Blob) => Promise.resolve(new Blob()),
+  saveBook: (book: Book) => Promise.resolve(new Blob()),
   getBooks: () => Promise.resolve([]),
   queryBook: (title: string) => Promise.resolve(new Blob()),
   deleteBook: () => undefined,

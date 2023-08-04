@@ -5,23 +5,25 @@ import { fileToBlob } from "../utils";
 
 import { useDatabase } from "@/app/context/database";
 
+import type { Book } from "../types/book";
+
 const screenAtom = atom<"uploading" | "reading">("uploading");
-const bookAtom = atom<Object>(null as unknown as Object);
-const booksAtom = atom<Object[]>([]);
+const bookAtom = atom<Book>(null as unknown as Book);
+const booksAtom = atom<Book[]>([]);
 
 export const useScreen = () => useAtom(screenAtom);
 
-export const useBook = () => useAtom(bookAtom);
+export const useBook = () => {
+  const [book] = useAtom(bookAtom);
+  return book;
+};
 
 export const useBooks = () => {
-  const [books] = useAtom(booksAtom)
-
+  const [books] = useAtom(booksAtom);
   return books;
-}
+};
 
 export function useSaveBook() {
-  const [_, setBook] = useAtom(bookAtom);
-
   const { saveBook } = useDatabase();
 
   return useCallback(
@@ -30,15 +32,9 @@ export function useSaveBook() {
       const meta = await extractBookMeta(book);
       const blob = await fileToBlob(book);
 
-      // save book in db
-      saveBook(meta.title, blob);
-
-      setBook({
-        meta,
-        blob,
-      });
+      saveBook({ title: meta.title, cover: meta.cover, blob });
     },
-    [saveBook, setBook]
+    [saveBook]
   );
 }
 

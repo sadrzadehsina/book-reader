@@ -1,11 +1,8 @@
 "use client";
 
-import JSZip from "jszip";
 import ePub from "epubjs";
 
-type BookMeta = {
-  title: string;
-};
+import type { Book } from "../types/book";
 
 export function viewBook(area: HTMLElement, file: File): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -25,27 +22,17 @@ export function viewBook(area: HTMLElement, file: File): Promise<void> {
   });
 }
 
-export function parseBook(file: File): Promise<BookMeta> {
+export function extractBookMeta(file: File): Promise<Omit<Book, "blob">> {
   return new Promise((resolve, reject) => {
     const book = ePub(file as unknown as ArrayBuffer);
-    book.loaded.metadata.then((metadata) => {
-      resolve({
-        title: metadata.title,
-      });
-    });
+
+    Promise.all([book.loaded.cover, book.loaded.metadata]).then(
+      ([cover, metadata]) => {
+        resolve({
+          cover,
+          title: metadata.title,
+        });
+      }
+    );
   });
 }
-
-
-export function extractBookMeta(file: File): Promise<BookMeta> {
-  return new Promise((resolve, reject) => {
-    const book = ePub(file as unknown as ArrayBuffer);
-    book.loaded.metadata.then((metadata) => {
-      resolve({
-        title: metadata.title,
-      });
-    });
-  });
-}
-
-
