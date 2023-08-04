@@ -1,24 +1,13 @@
 "use client";
 
-import { Dropzone } from "./components/dropzone";
-
-import { BooksList } from "./components/books-list";
-import { useBooks, useFetchBooks, useSaveBook } from "./hooks/use-shell";
-import { Box } from "@chakra-ui/react";
+import { useScreen } from "./hooks/use-shell";
+import { Reading } from "./components/screen/reading";
+import { Landing } from "./components/screen/landing";
 
 export default function Shell() {
-  const books = useBooks();
+  const [screen] = useScreen();
 
-  const saveBook = useSaveBook();
+  if (screen === "reading") return <Reading />;
 
-  useFetchBooks();
-
-  return (
-    <Box m="4">
-      <Dropzone onDrop={saveBook} />
-      <Box mt="4">
-        <BooksList books={books} />
-      </Box>
-    </Box>
-  );
+  return <Landing />;
 }

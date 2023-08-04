@@ -53,3 +53,14 @@ export function useFetchBooks() {
     fetchAllBooks();
   }, [getBooks, setBooksAtom]);
 }
+
+export function useSelectBook() {
+  const [_, setBook] = useAtom(bookAtom);
+
+  return useCallback(
+    (book: Book) => {
+      setBook(book);
+    },
+    [setBook]
+  );
+}
