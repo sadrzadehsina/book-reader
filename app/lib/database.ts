@@ -1,4 +1,4 @@
-import { localforage } from "./local-forge";
+import { localforage } from "./local-forage";
 
 import type { Book } from "../types/book";
 
