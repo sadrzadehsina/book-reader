@@ -7,15 +7,12 @@ import { useEffect, useRef } from "react";
 
 import { blobToArrayBuffer } from "@/app/utils";
 import { viewBook } from "@/app/lib/epub";
-import { Drawer } from "../drawer";
-import { useDrawer } from "../drawer/use-drawer";
+import { TableOfContent } from "../table-of-content";
 
 export function Reading() {
   const renderAreaRef = useRef(null);
 
   const [_, setScreen] = useScreen();
-
-  const [open, setOpen] = useDrawer();
 
   const selectedBook = useBook();
 
@@ -35,17 +32,12 @@ export function Reading() {
               <Button onClick={() => setScreen("landing")}>close</Button>
             </StackItem>
             <StackItem>
-              <Button onClick={() => setOpen(true)}>open drawer</Button>
+              <TableOfContent />
             </StackItem>
           </HStack>
         </Box>
       </header>
       <div ref={renderAreaRef} style={{ width: "100%", height: "100vh" }}></div>
-      <Drawer
-        header="Table of Content"
-        isOpen={open}
-        onClose={() => setOpen(false)}
-      />
     </>
   );
 }
