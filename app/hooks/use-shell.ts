@@ -1,11 +1,12 @@
 import { atom, useAtom } from "jotai";
-import { extractBookMeta } from "../lib/epub";
-import { useCallback, useEffect } from "react";
-import { fileToBlob } from "../utils";
+import { extractBookMeta, viewBook } from "../lib/epub";
+import { useCallback, useEffect, useState } from "react";
+import { blobToArrayBuffer, fileToBlob } from "../utils";
 
 import { useDatabase } from "@/app/context/database";
 
 import type { Book } from "../types/book";
+import { type Rendition } from "epubjs";
 
 const screenAtom = atom<"landing" | "reading">("landing");
 const bookAtom = atom<Book>(null as unknown as Book);
@@ -68,4 +69,44 @@ export function useSelectBook() {
     },
     [setBook]
   );
+}
+
+export function useReader() {
+  const [rendition, setRendition] = useState<Rendition>(
+    null as unknown as Rendition
+  );
+
+  const book = useBook();
+
+  const next = useCallback(() => {
+    if (!rendition) return;
+
+    rendition.next();
+  }, [rendition]);
+
+  const previous = useCallback(() => {
+    if (!rendition) return;
+
+    rendition.prev();
+  }, [rendition]);
+
+  const view = useCallback(
+    async (area) => {
+      if (!book) return;
+
+      const arraybuffer = await blobToArrayBuffer(book.blob);
+      const rendition = await viewBook(area, arraybuffer);
+
+      rendition.display();
+
+      setRendition(rendition);
+    },
+    [book]
+  );
+
+  return {
+    next,
+    previous,
+    view,
+  };
 }

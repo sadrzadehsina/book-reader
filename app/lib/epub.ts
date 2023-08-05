@@ -1,19 +1,20 @@
 "use client";
 
-import ePub from "epubjs";
+import ePub, { type Rendition } from "epubjs";
 
 import type { Book } from "../types/book";
 
-export function viewBook(area: HTMLElement, book: ArrayBuffer): Promise<void> {
+export function viewBook(
+  area: HTMLElement,
+  book: ArrayBuffer
+): Promise<Rendition> {
   return new Promise((resolve, reject) => {
     const rendition = ePub(book).renderTo(area, {
       flow: "scrolled-doc",
       width: "100%",
       height: "100%",
     });
-    const displayed = rendition.display();
-
-    displayed.then(resolve);
+    resolve(rendition);
   });
 }
 

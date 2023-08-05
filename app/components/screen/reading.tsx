@@ -1,12 +1,10 @@
 "use client";
 
 import { Box, Button, HStack, StackItem } from "@chakra-ui/react";
-import { useBook, useScreen } from "@/app/hooks/use-shell";
+import { useReader, useScreen } from "@/app/hooks/use-shell";
 
 import { useEffect, useRef } from "react";
 
-import { blobToArrayBuffer } from "@/app/utils";
-import { viewBook } from "@/app/lib/epub";
 import { TableOfContent } from "../table-of-content";
 
 export function Reading() {
@@ -14,14 +12,11 @@ export function Reading() {
 
   const [_, setScreen] = useScreen();
 
-  const selectedBook = useBook();
+  const { next, previous, view } = useReader();
 
   useEffect(() => {
-    if (!selectedBook) return;
-    blobToArrayBuffer(selectedBook.blob).then((arraybuffer) => {
-      viewBook(renderAreaRef.current!, arraybuffer);
-    });
-  }, [selectedBook]);
+    view(renderAreaRef.current);
+  }, [view]);
 
   return (
     <>
@@ -33,6 +28,12 @@ export function Reading() {
             </StackItem>
             <StackItem>
               <TableOfContent />
+            </StackItem>
+            <StackItem>
+              <Button onClick={next}>next chapter</Button>
+            </StackItem>
+            <StackItem>
+              <Button onClick={previous}>previous chapter</Button>
             </StackItem>
           </HStack>
         </Box>
