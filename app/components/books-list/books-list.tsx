@@ -20,7 +20,7 @@ export function BooksList({
   onBookClick,
 }: {
   books: Book[];
-  onBookClick: MouseEventHandler;
+  onBookClick: (book: Book) => void;
 }) {
   return books.map((book) => (
     <StackItem key={book.title} width="300px">
@@ -29,7 +29,9 @@ export function BooksList({
           <Heading size="md">{book.title}</Heading>
         </CardHeader>
         <CardFooter>
-          <Button colorScheme="twitter" onClick={() => onBookClick(book)}>Continue Reading</Button>
+          <Button colorScheme="twitter" onClick={() => onBookClick(book)}>
+            Continue Reading
+          </Button>
         </CardFooter>
       </Card>
     </StackItem>

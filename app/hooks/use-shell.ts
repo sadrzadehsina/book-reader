@@ -32,7 +32,12 @@ export function useSaveBook() {
       const meta = await extractBookMeta(book);
       const blob = await fileToBlob(book);
 
-      saveBook({ title: meta.title, cover: meta.cover, blob });
+      saveBook({
+        title: meta.title,
+        cover: meta.cover,
+        tableOfContent: meta.tableOfContent,
+        blob,
+      });
     },
     [saveBook]
   );
