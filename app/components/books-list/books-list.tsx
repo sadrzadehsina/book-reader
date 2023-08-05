@@ -24,12 +24,18 @@ export function BooksList({
 }) {
   return books.map((book) => (
     <StackItem key={book.title} width="300px">
-      <Card mt="4">
+      <Card mt="4" backgroundColor="black" color="white">
         <CardHeader>
           <Heading size="md">{book.title}</Heading>
         </CardHeader>
         <CardFooter>
-          <Button colorScheme="twitter" onClick={() => onBookClick(book)}>
+          <Button
+            backgroundColor="gray.200"
+            _hover={{
+              backgroundColor: "gray.100",
+            }}
+            onClick={() => onBookClick(book)}
+          >
             Continue Reading
           </Button>
         </CardFooter>

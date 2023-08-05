@@ -19,7 +19,15 @@ export function TableOfContent() {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>open table of content</Button>
+      <Button
+        backgroundColor="gray.200"
+        _hover={{
+          backgroundColor: "gray.50",
+        }}
+        onClick={() => setOpen(true)}
+      >
+        open table of content
+      </Button>
       <Drawer
         header="Table Of Content"
         isOpen={open}

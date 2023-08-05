@@ -8,6 +8,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { Dropzone } from "../dropzone";
 import { BooksList } from "../books-list";
+import { Header } from "../header/header";
 
 export function Landing() {
   useFetchBooks();
@@ -29,11 +30,14 @@ export function Landing() {
   );
 
   return (
-    <Box m="4">
-      <Dropzone onDrop={saveBook} />
-      <HStack spacing="5" align="start">
-        <BooksList books={books} onBookClick={selectBookAndOpenReading} />
-      </HStack>
-    </Box>
+    <>
+      <Header />
+      <Box m="6">
+        <Dropzone onDrop={saveBook} />
+        <HStack spacing="5" align="start">
+          <BooksList books={books} onBookClick={selectBookAndOpenReading} />
+        </HStack>
+      </Box>
+    </>
   );
 }

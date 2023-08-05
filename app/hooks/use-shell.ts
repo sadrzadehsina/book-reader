@@ -97,6 +97,39 @@ export function useReader() {
       const arraybuffer = await blobToArrayBuffer(book.blob);
       const rendition = await viewBook(area, arraybuffer);
 
+      rendition.themes.fontSize("140%");
+      rendition.themes.register("light", {
+        body: { "background-color": "#FFFFFF", color: "#000000" },
+      });
+      rendition.themes.register("dark", {
+        body: { "background-color": "#111111", color: "white" },
+        html: {
+          color: "white",
+          // "-webkit-filter": "invert(1) hue-rotate(180deg)",
+          // filter: "invert(1) hue-rotate(180deg)",
+        },
+        p: {
+          color: "white",
+        },
+        li: {
+          color: "white",
+        },
+        a: {
+          color: "white!important",
+        },
+        i: {
+          color: 'white!important'
+        },
+        '.black': {
+          color: 'white'
+        },
+        img: {
+          "-webkit-filter": "invert(1) hue-rotate(180deg)",
+          filter: "invert(1) hue-rotate(180deg)",
+        },
+      });
+      rendition.themes.select("dark");
+
       rendition.display();
 
       setRendition(rendition);
