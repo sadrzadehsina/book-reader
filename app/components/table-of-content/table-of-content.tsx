@@ -23,7 +23,7 @@ export function TableOfContent() {
       <Drawer
         header="Table Of Content"
         isOpen={open}
-        size="xl"
+        size="sm"
         onClose={() => setOpen(false)}
       >
         {tableOfContent.map((item) => (
