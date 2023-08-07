@@ -1,4 +1,4 @@
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { extractBookMeta, viewBook } from "../lib/epub";
 import { useCallback, useEffect, useState } from "react";
 import { blobToArrayBuffer, fileToBlob } from "../utils";
@@ -10,6 +10,7 @@ import { type Rendition } from "epubjs";
 
 const screenAtom = atom<"landing" | "reading">("landing");
 const bookAtom = atom<Book>(null as unknown as Book);
+const renditionAtom = atom<Rendition>(null as unknown as Rendition);
 const booksAtom = atom<Book[]>([]);
 
 export const useScreen = () => useAtom(screenAtom);
@@ -18,6 +19,10 @@ export const useBook = () => {
   const [book] = useAtom(bookAtom);
   return book;
 };
+
+export const useRenditionValue = () => useAtomValue(renditionAtom);
+
+export const useRenditionSet = () => useSetAtom(renditionAtom);
 
 export const useBooks = () => {
   const [books] = useAtom(booksAtom);
@@ -72,9 +77,9 @@ export function useSelectBook() {
 }
 
 export function useReader() {
-  const [rendition, setRendition] = useState<Rendition>(
-    null as unknown as Rendition
-  );
+  const rendition = useRenditionValue();
+
+  const setRendition = useRenditionSet();
 
   const book = useBook();
 
@@ -109,7 +114,7 @@ export function useReader() {
           // filter: "invert(1) hue-rotate(180deg)",
         },
         p: {
-          color: "white",
+          color: "white!important",
         },
         li: {
           color: "white",
@@ -118,10 +123,10 @@ export function useReader() {
           color: "white!important",
         },
         i: {
-          color: 'white!important'
+          color: "white!important",
         },
-        '.black': {
-          color: 'white'
+        ".black": {
+          color: "white",
         },
         img: {
           "-webkit-filter": "invert(1) hue-rotate(180deg)",

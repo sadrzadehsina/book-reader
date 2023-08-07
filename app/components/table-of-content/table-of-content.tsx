@@ -1,13 +1,15 @@
 "use client";
 
 import { Button } from "@chakra-ui/button";
-import { useBook } from "@/app/hooks/use-shell";
+import { useBook, useRenditionValue } from "@/app/hooks/use-shell";
 import { useMemo } from "react";
 import { Drawer, useDrawer } from "../drawer";
 import { TableOfContentItem } from "./item";
 
 export function TableOfContent() {
   const book = useBook();
+
+  const rendition = useRenditionValue();
 
   const [open, setOpen] = useDrawer();
 
@@ -16,6 +18,10 @@ export function TableOfContent() {
 
     return book.tableOfContent;
   }, [book]);
+
+  const goToChapter = (href: string) => {
+    rendition.display(href);
+  }
 
   return (
     <>
@@ -35,7 +41,7 @@ export function TableOfContent() {
         onClose={() => setOpen(false)}
       >
         {tableOfContent.map((item) => (
-          <TableOfContentItem key={item.id} {...item} />
+          <TableOfContentItem key={item.id} {...item} onClick={goToChapter} />
         ))}
       </Drawer>
     </>
