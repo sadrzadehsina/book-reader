@@ -5,11 +5,14 @@ import { useBook, useRenditionValue } from "@/app/hooks/use-shell";
 import { useMemo } from "react";
 import { Drawer, useDrawer } from "../drawer";
 import { TableOfContentItem } from "./item";
+import { useDatabase } from "@/app/context/database";
 
 export function TableOfContent() {
   const book = useBook();
 
   const rendition = useRenditionValue();
+
+  const { updateProgress} = useDatabase();
 
   const [open, setOpen] = useDrawer();
 
@@ -21,6 +24,7 @@ export function TableOfContent() {
 
   const goToChapter = (href: string) => {
     rendition.display(href);
+    updateProgress(book.id, href);
   }
 
   return (

@@ -9,10 +9,11 @@ export const database = {
     cover,
     tableOfContent,
     blob,
+    progress,
   }: Book): Promise<Omit<Book, "id">> {
     return new Promise((resolve, reject) => {
       localforage
-        .setItem(id, { title, cover, tableOfContent, blob })
+        .setItem(id, { title, cover, tableOfContent, blob, progress })
         .then(resolve)
         .catch(reject);
     });
@@ -29,6 +30,7 @@ export const database = {
             cover: (value as Book).cover,
             tableOfContent: (value as Book).tableOfContent,
             blob: (value as Book).blob,
+            progress: (value as Book).progress,
           });
         })
         .then(() => {
@@ -52,5 +54,17 @@ export const database = {
 
   updateBook() {
     return undefined;
+  },
+
+  updateProgress(bookId: string, progress: string): Promise<Omit<Book, "id">> {
+    return new Promise((resolve, reject) => {
+      localforage.getItem(bookId).then((book) => {
+        (book as Book).progress = progress;
+        localforage
+          .setItem(bookId, book as Book)
+          .then(resolve)
+          .catch(reject);
+      });
+    });
   },
 };

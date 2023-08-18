@@ -5,7 +5,7 @@ import { blobToArrayBuffer, fileToBlob } from "../utils";
 
 import { useDatabase } from "@/app/context/database";
 
-import type { Book } from "../types/book";
+import { type Book } from "../types/book";
 import { type Rendition } from "epubjs";
 
 import { nanoid } from "nanoid";
@@ -47,6 +47,7 @@ export function useSaveBook() {
         cover: meta.cover,
         tableOfContent: meta.tableOfContent,
         blob,
+        progress: meta.tableOfContent.at(0)?.href!,
       });
     },
     [saveBook]
@@ -94,7 +95,7 @@ export function useReader() {
   const previous = useCallback(() => {
     if (!rendition) return;
 
-    rendition.prev();
+    rendition.prev()
   }, [rendition]);
 
   const view = useCallback(
@@ -137,7 +138,7 @@ export function useReader() {
       });
       rendition.themes.select("dark");
 
-      rendition.display();
+      rendition.display(book.progress);
 
       setRendition(rendition);
     },

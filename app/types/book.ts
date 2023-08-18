@@ -6,4 +6,5 @@ export type Book = {
   cover: string;
   tableOfContent: Array<NavItem>;
   blob: Blob;
+  progress: string;
 };
