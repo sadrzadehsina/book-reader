@@ -9,6 +9,7 @@ import { type Book } from "../types/book";
 import { type Rendition } from "epubjs";
 
 import { nanoid } from "nanoid";
+import { DisplayedLocation } from "epubjs/types/rendition";
 
 const screenAtom = atom<"landing" | "reading">("landing");
 const bookAtom = atom<Book>(null as unknown as Book);
@@ -86,16 +87,21 @@ export function useReader() {
 
   const book = useBook();
 
+  const { updateProgress } = useDatabase();
+
   const next = useCallback(() => {
     if (!rendition) return;
 
-    rendition.next();
-  }, [rendition]);
+    rendition.next().then(() => {
+      const location: DisplayedLocation = rendition.currentLocation();
+      updateProgress(book.id, location.start.href);
+    });
+  }, [book.id, rendition, updateProgress]);
 
   const previous = useCallback(() => {
     if (!rendition) return;
 
-    rendition.prev()
+    rendition.prev();
   }, [rendition]);
 
   const view = useCallback(
