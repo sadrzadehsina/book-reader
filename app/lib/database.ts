@@ -4,14 +4,15 @@ import type { Book } from "../types/book";
 
 export const database = {
   saveBook({
+    id,
     title,
     cover,
     tableOfContent,
     blob,
-  }: Book): Promise<Omit<Book, "title">> {
+  }: Book): Promise<Omit<Book, "id">> {
     return new Promise((resolve, reject) => {
       localforage
-        .setItem(title, { cover, tableOfContent, blob })
+        .setItem(id, { title, cover, tableOfContent, blob })
         .then(resolve)
         .catch(reject);
     });
@@ -23,7 +24,8 @@ export const database = {
       localforage
         .iterate(function (value, key) {
           books.push({
-            title: key,
+            id: key,
+            title: (value as Book).title,
             cover: (value as Book).cover,
             tableOfContent: (value as Book).tableOfContent,
             blob: (value as Book).blob,

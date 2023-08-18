@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, Button, Center, HStack, StackItem } from "@chakra-ui/react";
-import { useReader, useScreen } from "@/app/hooks/use-shell";
+import { Box, Button, StackItem } from "@chakra-ui/react";
+import { useReader, useScreenSet } from "@/app/hooks/use-shell";
 
 import { useEffect, useRef } from "react";
 
@@ -9,14 +9,14 @@ import { TableOfContent } from "../table-of-content";
 import { Header } from "../header/header";
 
 export function Reading() {
-  const renderAreaRef = useRef(null);
+  const renderAreaRef = useRef<HTMLDivElement>(null);
 
-  const [_, setScreen] = useScreen();
+  const setScreen = useScreenSet();
 
   const { next, previous, view } = useReader();
 
   useEffect(() => {
-    view(renderAreaRef.current);
+    view(renderAreaRef.current!);
   }, [view]);
 
   return (

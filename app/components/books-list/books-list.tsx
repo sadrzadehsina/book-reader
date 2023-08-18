@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 
 import type { Book } from "@/app/types/book";
-import { MouseEventHandler } from "react";
 
 export function BooksList({
   books,
@@ -23,7 +22,7 @@ export function BooksList({
   onBookClick: (book: Book) => void;
 }) {
   return books.map((book) => (
-    <StackItem key={book.title} width="300px">
+    <StackItem key={book.id} width="300px">
       <Card mt="4" backgroundColor="black" color="white">
         <CardHeader>
           <Heading size="md">{book.title}</Heading>

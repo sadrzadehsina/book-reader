@@ -5,7 +5,7 @@ import type { Book } from "../types/book";
 import { createContext, useContext, ReactNode, useMemo } from "react";
 
 type DatabaseContextType = {
-  saveBook: (book: Book) => Promise<Omit<Book, "title">>;
+  saveBook: (book: Book) => Promise<Omit<Book, "id">>;
   getBooks: () => Promise<Book[]>;
   queryBook: (title: string) => Promise<Blob>;
   deleteBook: () => undefined;

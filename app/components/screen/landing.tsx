@@ -1,6 +1,10 @@
 "use client";
 
-import { useScreen, useFetchBooks, useSelectBook } from "@/app/hooks/use-shell";
+import {
+  useScreenSet,
+  useFetchBooks,
+  useSelectBook,
+} from "@/app/hooks/use-shell";
 import { useBooks } from "@/app/hooks/use-shell";
 import { useSaveBook } from "@/app/hooks/use-shell";
 import { Book } from "@/app/types/book";
@@ -13,7 +17,7 @@ import { Header } from "../header/header";
 export function Landing() {
   useFetchBooks();
 
-  const [_, setScreen] = useScreen();
+  const setScreen = useScreenSet();
 
   const books = useBooks();
 

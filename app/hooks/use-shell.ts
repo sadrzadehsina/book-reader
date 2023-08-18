@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { extractBookMeta, viewBook } from "../lib/epub";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { blobToArrayBuffer, fileToBlob } from "../utils";
 
 import { useDatabase } from "@/app/context/database";
@@ -8,12 +8,15 @@ import { useDatabase } from "@/app/context/database";
 import type { Book } from "../types/book";
 import { type Rendition } from "epubjs";
 
+import { nanoid } from "nanoid";
+
 const screenAtom = atom<"landing" | "reading">("landing");
 const bookAtom = atom<Book>(null as unknown as Book);
 const renditionAtom = atom<Rendition>(null as unknown as Rendition);
 const booksAtom = atom<Book[]>([]);
 
-export const useScreen = () => useAtom(screenAtom);
+export const useScreenValue = () => useAtomValue(screenAtom);
+export const useScreenSet = () => useSetAtom(screenAtom);
 
 export const useBook = () => {
   const [book] = useAtom(bookAtom);
@@ -39,6 +42,7 @@ export function useSaveBook() {
       const blob = await fileToBlob(book);
 
       saveBook({
+        id: nanoid(),
         title: meta.title,
         cover: meta.cover,
         tableOfContent: meta.tableOfContent,
@@ -50,15 +54,13 @@ export function useSaveBook() {
 }
 
 export function useFetchBooks() {
-  const [_, setBooksAtom] = useAtom(booksAtom);
+  const setBooksAtom = useSetAtom(booksAtom);
 
   const { getBooks } = useDatabase();
 
   useEffect(() => {
     async function fetchAllBooks() {
-      getBooks().then((books) => {
-        setBooksAtom(books);
-      });
+      getBooks().then(setBooksAtom);
     }
 
     fetchAllBooks();
@@ -66,7 +68,7 @@ export function useFetchBooks() {
 }
 
 export function useSelectBook() {
-  const [_, setBook] = useAtom(bookAtom);
+  const setBook = useSetAtom(bookAtom);
 
   return useCallback(
     (book: Book) => {
@@ -96,7 +98,7 @@ export function useReader() {
   }, [rendition]);
 
   const view = useCallback(
-    async (area) => {
+    async (area: HTMLElement) => {
       if (!book) return;
 
       const arraybuffer = await blobToArrayBuffer(book.blob);
@@ -139,7 +141,7 @@ export function useReader() {
 
       setRendition(rendition);
     },
-    [book]
+    [book, setRendition]
   );
 
   return {
