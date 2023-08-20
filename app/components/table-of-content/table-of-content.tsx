@@ -12,7 +12,7 @@ export function TableOfContent() {
 
   const rendition = useRenditionValue();
 
-  const { updateProgress} = useDatabase();
+  const { updateProgress } = useDatabase();
 
   const [open, setOpen] = useDrawer();
 
@@ -23,9 +23,10 @@ export function TableOfContent() {
   }, [book]);
 
   const goToChapter = (href: string) => {
-    rendition.display(href);
-    updateProgress(book.id, href);
-  }
+    rendition.display(href).then(() => {
+      updateProgress(book.id, rendition.currentLocation());
+    });
+  };
 
   return (
     <>

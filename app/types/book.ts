@@ -1,4 +1,5 @@
 import { type NavItem } from "epubjs";
+import { DisplayedLocation } from "epubjs/types/rendition";
 
 export type Book = {
   id: string;
@@ -6,5 +7,5 @@ export type Book = {
   cover: string;
   tableOfContent: Array<NavItem>;
   blob: Blob;
-  progress: string;
+  progress: DisplayedLocation;
 };

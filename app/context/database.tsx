@@ -12,7 +12,7 @@ type DatabaseContextType = {
   updateBook: () => undefined;
   updateProgress: (
     bookId: string,
-    progress: string
+    progress: DisplayedLocation 
   ) => Promise<Omit<Book, "id">>;
 };
 
@@ -22,11 +22,12 @@ const DatabaseContext = createContext<DatabaseContextType>({
   queryBook: (title: string) => Promise.resolve(new Blob()),
   deleteBook: () => undefined,
   updateBook: () => undefined,
-  updateProgress: (bookId: string, progress: string) =>
+  updateProgress: (bookId: string, progress: DisplayedLocation) =>
     Promise.resolve(null as unknown as Book),
 });
 
 import { database } from "../lib/database";
+import { DisplayedLocation } from "epubjs/types/rendition";
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const {

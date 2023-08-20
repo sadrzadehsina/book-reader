@@ -1,6 +1,7 @@
 import { localforage } from "./local-forage";
 
 import type { Book } from "../types/book";
+import { DisplayedLocation } from "epubjs/types/rendition";
 
 export const database = {
   saveBook({
@@ -56,7 +57,7 @@ export const database = {
     return undefined;
   },
 
-  updateProgress(bookId: string, progress: string): Promise<Omit<Book, "id">> {
+  updateProgress(bookId: string, progress: DisplayedLocation): Promise<Omit<Book, "id">> {
     return new Promise((resolve, reject) => {
       localforage.getItem(bookId).then((book) => {
         (book as Book).progress = progress;

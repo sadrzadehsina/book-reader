@@ -48,7 +48,7 @@ export function useSaveBook() {
         cover: meta.cover,
         tableOfContent: meta.tableOfContent,
         blob,
-        progress: meta.tableOfContent.at(0)?.href!,
+        progress: null as unknown as DisplayedLocation,
       });
     },
     [saveBook]
@@ -94,15 +94,17 @@ export function useReader() {
 
     rendition.next().then(() => {
       const location: DisplayedLocation = rendition.currentLocation();
-      updateProgress(book.id, location.start.href);
+      updateProgress(book.id, location);
     });
   }, [book.id, rendition, updateProgress]);
 
   const previous = useCallback(() => {
     if (!rendition) return;
 
+    const location: DisplayedLocation = rendition.currentLocation();
+    updateProgress(book.id, location);
     rendition.prev();
-  }, [rendition]);
+  }, [book.id, rendition, updateProgress]);
 
   const view = useCallback(
     async (area: HTMLElement) => {
@@ -143,8 +145,11 @@ export function useReader() {
         },
       });
       rendition.themes.select("dark");
+      rendition.display();
 
-      rendition.display(book.progress);
+      if (book.progress) {
+        rendition.display(book.progress.start.cfi);
+      }
 
       setRendition(rendition);
     },
