@@ -10,7 +10,7 @@ export function viewBook(
 ): Promise<Rendition> {
   return new Promise((resolve, reject) => {
     const rendition = ePub(book).renderTo(area, {
-      flow: 'paginated',
+      flow: "paginated",
       width: "100%",
       height: "100%",
     });
@@ -18,7 +18,9 @@ export function viewBook(
   });
 }
 
-export function extractBookMeta(file: File): Promise<Omit<Book, "blob">> {
+export function extractBookMeta(
+  file: File
+): Promise<Omit<Book, "id" | "blob" | "progress">> {
   return new Promise((resolve, reject) => {
     const book = ePub(file as unknown as ArrayBuffer);
 

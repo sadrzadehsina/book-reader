@@ -130,11 +130,16 @@ export function useReader() {
           color: "#F8F8F8!important",
           "text-decoration": "underline",
         },
+        "span.black": {
+          "background-color": "#111111",
+          color: "#F8F8F8!important",
+        },
       });
       rendition.themes.select("dark");
       rendition.display();
 
       if (book.progress) {
+        // @ts-ignore
         rendition.display(book.progress.start.cfi);
       }
 
