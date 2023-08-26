@@ -130,8 +130,7 @@ export function useReader() {
           color: "#F8F8F8!important",
           "text-decoration": "underline",
         },
-        "span.black": {
-          "background-color": "#111111",
+        ".black": {
           color: "#F8F8F8!important",
         },
       });
