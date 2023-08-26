@@ -1,13 +1,13 @@
 "use client";
 
 import { useScreenValue } from "./hooks/use-shell";
-import { Reading } from "./components/screen/reading";
-import { Landing } from "./components/screen/landing";
+import { Dashboard } from "./dashboard";
+import { Reader } from "./reader";
 
 export default function Shell() {
   const screen = useScreenValue();
 
-  if (screen === "reading") return <Reading />;
+  if (screen === "reading") return <Reader />;
 
-  return <Landing />;
+  return <Dashboard />;
 }
