@@ -9,13 +9,13 @@ import { useBooks } from "@/app/hooks/use-shell";
 import { useSaveBook } from "@/app/hooks/use-shell";
 import { Book } from "@/app/types/book";
 import { Box, HStack } from "@chakra-ui/react";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Dropzone } from "../dropzone";
 import { BooksList } from "../books-list";
 import { Header } from "../header/header";
 
 export function Landing() {
-  useFetchBooks();
+  const fetchBooks = useFetchBooks();
 
   const setScreen = useScreenSet();
 
@@ -33,11 +33,23 @@ export function Landing() {
     [selectBook, setScreen]
   );
 
+  const saveBookAndRefetch = useCallback(
+    async (files: File[]) => {
+      await saveBook(files);
+      fetchBooks();
+    },
+    [fetchBooks, saveBook]
+  );
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
+
   return (
     <>
       <Header />
       <Box m="6">
-        <Dropzone onDrop={saveBook} />
+        <Dropzone onDrop={saveBookAndRefetch} />
         <HStack spacing="5" align="start">
           <BooksList books={books} onBookClick={selectBookAndOpenReading} />
         </HStack>

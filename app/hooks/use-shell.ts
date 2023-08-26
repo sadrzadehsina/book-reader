@@ -42,7 +42,7 @@ export function useSaveBook() {
       const meta = await extractBookMeta(book);
       const blob = await fileToBlob(book);
 
-      saveBook({
+      return saveBook({
         id: nanoid(),
         title: meta.title,
         cover: meta.cover,
@@ -60,12 +60,8 @@ export function useFetchBooks() {
 
   const { getBooks } = useDatabase();
 
-  useEffect(() => {
-    async function fetchAllBooks() {
-      getBooks().then(setBooksAtom);
-    }
-
-    fetchAllBooks();
+  return useCallback(() => {
+    getBooks().then(setBooksAtom);
   }, [getBooks, setBooksAtom]);
 }
 
