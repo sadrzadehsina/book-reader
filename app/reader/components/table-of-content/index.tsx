@@ -1,14 +1,16 @@
 "use client";
 
 import { Button } from "@chakra-ui/button";
-import { useBook, useRenditionValue } from "@/app/hooks/use-shell";
+import { useBookValue } from "@/app/hooks/use-book";
+import { useRenditionValue } from "@/app/hooks/use-rendition";
 import { useMemo } from "react";
-import { Drawer, useDrawer } from "../drawer";
+import { Drawer } from "../drawer";
+import { useDrawer } from "../drawer/use-drawer";
 import { TableOfContentItem } from "./item";
 import { useDatabase } from "@/app/context/database";
 
 export function TableOfContent() {
-  const book = useBook();
+  const book = useBookValue();
 
   const rendition = useRenditionValue();
 
