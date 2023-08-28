@@ -1,6 +1,9 @@
 "use client";
 
-import type { Book } from "../types/book";
+import type { Book } from "@/app/types/book";
+
+import { database } from "@/app/lib/database";
+import { DisplayedLocation } from "epubjs/types/rendition";
 
 import { createContext, useContext, ReactNode, useMemo } from "react";
 
@@ -12,7 +15,7 @@ type DatabaseContextType = {
   updateBook: () => undefined;
   updateProgress: (
     bookId: string,
-    progress: DisplayedLocation 
+    progress: DisplayedLocation
   ) => Promise<Omit<Book, "id">>;
 };
 
@@ -25,9 +28,6 @@ const DatabaseContext = createContext<DatabaseContextType>({
   updateProgress: (bookId: string, progress: DisplayedLocation) =>
     Promise.resolve(null as unknown as Book),
 });
-
-import { database } from "../lib/database";
-import { DisplayedLocation } from "epubjs/types/rendition";
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const {

@@ -2,7 +2,7 @@
 
 import ePub, { type Rendition } from "epubjs";
 
-import type { Book } from "../types/book";
+import type { Book } from "@/app/types/book";
 
 export function viewBook(
   area: HTMLElement,

@@ -1,6 +1,6 @@
 import { localforage } from "./local-forage";
 
-import type { Book } from "../types/book";
+import type { Book } from "@/app/types/book";
 import { DisplayedLocation } from "epubjs/types/rendition";
 
 export const database = {

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Book } from "../types/book";
+import { Book } from "@/app/types/book";
 
 const booksAtom = atom<Book[]>([]);
 
