@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useBooksValue } from "../hooks/use-books";
 import { BooksList } from "./components/books-list";
 import { useSaveBook } from "../hooks/use-save-book";
+import { useBookValue } from "../hooks/use-book";
 
 export function Dashboard() {
   const fetchBooks = useFetchBooks();
@@ -25,6 +26,8 @@ export function Dashboard() {
   const books = useBooksValue();
 
   const saveBook = useSaveBook();
+
+  const selectedBook = useBookValue();
 
   useEffect(() => {
     fetchBooks();
@@ -68,20 +71,21 @@ export function Dashboard() {
             h="full"
             maxW="full"
             maxH="full"
-            gap="4"
+            gap="8"
           >
-            <Box p="8">
+            <Box pr="8" pl="8" pt="8">
               <Heading>Good Morning, Sina</Heading>
             </Box>
-            <Box p="8">
+            <Box pr="8" pl="8">
               <Dropzone onDrop={saveBook} />
             </Box>
-            <Box flex="1" p="8">
+            <Box pr="8" pl="8"><Heading size="md">Your Books</Heading></Box>
+            <Box flex="1" pr="8" pl="8">
               <BooksList books={books} />
             </Box>
           </Flex>
         </Box>
-        <Box p="8">Summary</Box>
+        {selectedBook && <Box p="8">Summary</Box> }
       </Flex>
     </Container>
   );
