@@ -1,24 +1,84 @@
 "use client";
 
-import { Container, Flex } from "@chakra-ui/react";
+import {
+  Container,
+  Flex,
+  Avatar,
+  Divider,
+  IconButton,
+  Heading,
+} from "@chakra-ui/react";
+
+import { LiaHomeSolid, LiaHeart } from "react-icons/lia";
 
 import { Box } from "@chakra-ui/react";
+import { Dropzone } from "./components/dropzone";
+import { useFetchBooks } from "@/app/hooks/use-fetch-books";
+import { useEffect } from "react";
+import { useBooksValue } from "../hooks/use-books";
+import { BooksList } from "./components/books-list";
 
 export function Dashboard() {
+  const fetchBooks = useFetchBooks();
+
+  const books = useBooksValue();
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
+
   return (
-    <Container w="full" h="full" maxW="full">
+    <Container w="full" h="full" maxW="full" p="0" backgroundColor="#FCFCFC">
       <Flex w="full" h="full" maxW="full" maxH="full">
-        <Box border="1px solid">Menu</Box>
-        <Box flex="1">
-          <Flex flexDir="column" w="full" h="full" maxW="full" maxH="full">
-            <Box border="1px solid">Good Morning, Sina</Box>
-            <Box border="1px solid">Dropzone</Box>
-            <Box flex="1" border="1px solid">
-              Books
+        <Box p="8" backgroundColor="white">
+          <Flex flexDir="column" gap="8">
+            <Box>
+              <Avatar name="Sina Sadrzadeh" />
+            </Box>
+            <Box>
+              <Divider />
+            </Box>
+            <Box>
+              <IconButton
+                aria-label="Search database"
+                size="lg"
+                fontSize="20"
+                colorScheme="facebook"
+                icon={<LiaHomeSolid />}
+              />
+            </Box>
+            <Box>
+              <IconButton
+                aria-label="Search database"
+                size="lg"
+                fontSize="20"
+                variant="ghost"
+                icon={<LiaHeart />}
+              />
             </Box>
           </Flex>
         </Box>
-        <Box border="1px solid">Summary</Box>
+        <Box flex="1">
+          <Flex
+            flexDir="column"
+            w="full"
+            h="full"
+            maxW="full"
+            maxH="full"
+            gap="4"
+          >
+            <Box p="8">
+              <Heading>Good Morning, Sina</Heading>
+            </Box>
+            <Box p="8">
+              <Dropzone />
+            </Box>
+            <Box flex="1" p="8">
+              <BooksList books={books} />
+            </Box>
+          </Flex>
+        </Box>
+        <Box p="8">Summary</Box>
       </Flex>
     </Container>
   );
