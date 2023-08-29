@@ -8,10 +8,12 @@ export function Dropzone(props: DropzoneOptions) {
   return (
     <Box
       p="12"
-      border="2px"
-      borderRadius="md"
-      borderStyle="dashed"
-      borderColor="blackAlpha.900"
+      border="4px"
+      borderBottom="8px"
+      borderRadius="lg"
+      borderColor="#333333"
+      backgroundColor="#5b4eea"
+      color="white"
       cursor="pointer"
       {...getRootProps()}
     >

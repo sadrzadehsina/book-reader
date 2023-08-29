@@ -1,7 +1,7 @@
 "use client";
 
-import '@fontsource/inter'
-import '@fontsource/roboto'
+import "@fontsource/inter";
+import "@fontsource/roboto";
 
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
