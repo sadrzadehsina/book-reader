@@ -17,11 +17,14 @@ import { useFetchBooks } from "@/app/hooks/use-fetch-books";
 import { useEffect } from "react";
 import { useBooksValue } from "../hooks/use-books";
 import { BooksList } from "./components/books-list";
+import { useSaveBook } from "../hooks/use-save-book";
 
 export function Dashboard() {
   const fetchBooks = useFetchBooks();
 
   const books = useBooksValue();
+
+  const saveBook = useSaveBook();
 
   useEffect(() => {
     fetchBooks();
@@ -71,7 +74,7 @@ export function Dashboard() {
               <Heading>Good Morning, Sina</Heading>
             </Box>
             <Box p="8">
-              <Dropzone />
+              <Dropzone onDrop={saveBook} />
             </Box>
             <Box flex="1" p="8">
               <BooksList books={books} />

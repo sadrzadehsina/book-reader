@@ -6,6 +6,7 @@ import { DisplayedLocation } from "epubjs/types/rendition";
 export const database = {
   saveBook({
     id,
+    author,
     title,
     cover,
     tableOfContent,
@@ -14,7 +15,7 @@ export const database = {
   }: Book): Promise<Omit<Book, "id">> {
     return new Promise((resolve, reject) => {
       localforage
-        .setItem(id, { title, cover, tableOfContent, blob, progress })
+        .setItem(id, { author, title, cover, tableOfContent, blob, progress })
         .then(resolve)
         .catch(reject);
     });
@@ -27,6 +28,7 @@ export const database = {
         .iterate(function (value, key) {
           books.push({
             id: key,
+            author: (value as Book).author,
             title: (value as Book).title,
             cover: (value as Book).cover,
             tableOfContent: (value as Book).tableOfContent,

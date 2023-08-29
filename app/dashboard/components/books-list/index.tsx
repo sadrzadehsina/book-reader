@@ -35,7 +35,7 @@ export function BooksList({
               <Heading size="md">{book.title}</Heading>
             </Box>
             <Box>
-              <Heading size="sm">sina sadrzadeh</Heading>
+              <Heading size="sm">{book.author}</Heading>
             </Box>
           </Flex>
         </StackItem>

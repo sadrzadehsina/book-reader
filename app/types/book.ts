@@ -3,6 +3,7 @@ import { DisplayedLocation } from "epubjs/types/rendition";
 
 export type Book = {
   id: string;
+  author: string;
   title: string;
   cover: string;
   tableOfContent: Array<NavItem>;

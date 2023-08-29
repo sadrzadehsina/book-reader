@@ -18,6 +18,7 @@ export function useSaveBook() {
 
       return saveBook({
         id: nanoid(),
+        author: meta.author,
         title: meta.title,
         cover: meta.cover,
         tableOfContent: meta.tableOfContent,

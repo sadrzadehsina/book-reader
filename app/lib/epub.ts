@@ -32,6 +32,7 @@ export function extractBookMeta(
       resolve({
         cover,
         title: metadata.title,
+        author: metadata.creator,
         tableOfContent: navigation.toc,
       });
     });
