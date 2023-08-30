@@ -48,18 +48,11 @@ export function Dashboard() {
               <IconButton
                 aria-label="Search database"
                 size="lg"
-                fontSize="20"
-                colorScheme="facebook"
+                fontSize="25"
+                fontWeight="bold"
+                variant="custom-primary"
+                // color='white'
                 icon={<LiaHomeSolid />}
-              />
-            </Box>
-            <Box>
-              <IconButton
-                aria-label="Search database"
-                size="lg"
-                fontSize="20"
-                variant="ghost"
-                icon={<LiaHeart />}
               />
             </Box>
           </Flex>
@@ -79,13 +72,15 @@ export function Dashboard() {
             <Box pr="8" pl="8">
               <Dropzone onDrop={saveBook} />
             </Box>
-            <Box pr="8" pl="8"><Heading size="md">Your Books</Heading></Box>
+            <Box pr="8" pl="8">
+              <Heading size="md">Your Books</Heading>
+            </Box>
             <Box flex="1" pr="8" pl="8">
               <BooksList books={books} />
             </Box>
           </Flex>
         </Box>
-        {selectedBook && <Box p="8">Summary</Box> }
+        {selectedBook && <Box p="8">Summary</Box>}
       </Flex>
     </Container>
   );

@@ -11,9 +11,9 @@ export function Dropzone(props: DropzoneOptions) {
       border="4px"
       borderBottom="8px"
       borderRadius="lg"
-      borderColor="#333333"
+      borderColor="#27233A"
       backgroundColor="#5b4eea"
-      color="white"
+      color="#F3E0EC"
       cursor="pointer"
       {...getRootProps()}
     >

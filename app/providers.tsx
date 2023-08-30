@@ -15,6 +15,24 @@ const theme = extendTheme({
     heading: `'Inter', sans-serif`,
     body: `'Roboto', sans-serif`,
   },
+  components: {
+    Button: {
+      variants: {
+        "custom-primary": {
+          textColor: "#F3E0EC",
+          bg: "#5b4eea",
+          borderColor: "#27233A!important",
+          border: "4px",
+          borderBottom: "8px",
+          borderRadius: "lg",
+          "&:hover": {
+            border: "4px",
+            borderTop: "4px",
+          },
+        },
+      },
+    },
+  },
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {
