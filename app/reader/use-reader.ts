@@ -9,6 +9,7 @@ import { useRenditionValue } from "../hooks/use-rendition";
 import { useSetRendition } from "../hooks/use-rendition";
 import { useBookValue } from "../hooks/use-book";
 import { useDatabase } from "../context/database";
+import { useDrawer } from "./components/drawer/use-drawer";
 
 export function useReader() {
   const rendition = useRenditionValue();
@@ -16,6 +17,8 @@ export function useReader() {
   const setRendition = useSetRendition();
 
   const book = useBookValue();
+
+  const [_, openTableOfContent] = useDrawer();
 
   const { updateProgress } = useDatabase();
 
@@ -58,6 +61,7 @@ export function useReader() {
   return {
     next,
     previous,
+    openTableOfContent,
     view,
   };
 }

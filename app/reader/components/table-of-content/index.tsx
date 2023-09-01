@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@chakra-ui/button";
 import { useBookValue } from "@/app/hooks/use-book";
 import { useRenditionValue } from "@/app/hooks/use-rendition";
 import { useMemo } from "react";
@@ -31,26 +30,15 @@ export function TableOfContent() {
   };
 
   return (
-    <>
-      <Button
-        backgroundColor="gray.200"
-        _hover={{
-          backgroundColor: "gray.50",
-        }}
-        onClick={() => setOpen(true)}
-      >
-        open table of content
-      </Button>
-      <Drawer
-        header="Table Of Content"
-        isOpen={open}
-        size="sm"
-        onClose={() => setOpen(false)}
-      >
-        {tableOfContent.map((item) => (
-          <TableOfContentItem key={item.id} {...item} onClick={goToChapter} />
-        ))}
-      </Drawer>
-    </>
+    <Drawer
+      header="Table Of Content"
+      isOpen={open}
+      size="sm"
+      onClose={() => setOpen(false)}
+    >
+      {tableOfContent.map((item) => (
+        <TableOfContentItem key={item.id} {...item} onClick={goToChapter} />
+      ))}
+    </Drawer>
   );
 }

@@ -16,7 +16,7 @@ import { useSetScreen } from "@/app/hooks/use-screen";
 import { useCallback } from "react";
 
 export function Navigation() {
-  const { previous, next } = useReader();
+  const { previous, next, openTableOfContent } = useReader();
 
   const setScreen = useSetScreen();
 
@@ -34,6 +34,7 @@ export function Navigation() {
             aria-label="table-of-content"
             variant="ghost"
             icon={<LiaBarsSolid />}
+            onClick={() => openTableOfContent(true)}
           />
         </VStack>
       </ButtonGroup>
