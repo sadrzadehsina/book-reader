@@ -5,18 +5,21 @@ import { useEffect, useRef } from "react";
 import { useReader } from "./use-reader";
 import { Navigation } from "./components/navigation";
 import { TableOfContent } from "./components/table-of-content";
+import { useDarkTheme } from "./use-dark-theme";
 
 export function Reader() {
   const viewAreaRef = useRef(null);
 
   const reader = useReader();
 
+  useDarkTheme();
+
   useEffect(() => {
     reader.view(viewAreaRef.current!);
   }, []);
 
   return (
-    <Box pt="4" pb="4">
+    <Box>
       <Navigation />
       <TableOfContent />
       <div ref={viewAreaRef} style={{ height: "100vh" }} />

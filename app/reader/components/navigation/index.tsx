@@ -28,13 +28,19 @@ export function Navigation() {
     <>
       <ButtonGroup pos="absolute" top="5" right="5" zIndex="9">
         <VStack>
-          <CloseButton onClick={closeBook} />
+          <CloseButton
+            onClick={closeBook}
+            color="white"
+            _hover={{ backgroundColor: "#000" }}
+          />
           <IconButton
             fontSize="24px"
             aria-label="table-of-content"
             variant="ghost"
+            color="white"
             icon={<LiaBarsSolid />}
             onClick={() => openTableOfContent(true)}
+            _hover={{ backgroundColor: "#000" }}
           />
         </VStack>
       </ButtonGroup>
@@ -50,12 +56,18 @@ export function Navigation() {
           aria-label="previous"
           icon={<LiaAngleLeftSolid />}
           onClick={previous}
+          variant="ghost"
+          color="white"
+          _hover={{ backgroundColor: "#000" }}
         />
         <IconButton
           fontSize="24px"
           aria-label="next"
           icon={<LiaAngleRightSolid />}
           onClick={next}
+          variant="ghost"
+          color="white"
+          _hover={{ backgroundColor: "#000" }}
         />
       </ButtonGroup>
     </>
