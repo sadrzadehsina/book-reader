@@ -25,22 +25,30 @@ export function BooksList({
       {books.map((book) => (
         <StackItem key={book.id}>
           <ButtonGroup>
-            <Button variant="unstyled" onClick={() => onBookClick(book)}>
-              <Flex flexDir="column" gap="4" align="flex-start">
+            <Button
+              variant="unstyled"
+              onClick={() => onBookClick(book)}
+              _hover={{
+                color: '#5b4eea'
+              }}
+            >
+              <Flex flexDir="column" gap="4" align="flex-start" w={300} h={400}>
                 <Box>
                   <Image
                     src={book.cover}
                     alt={book.title}
                     borderRadius="lg"
                     objectFit="cover"
-                    w="350px"
-                    minW="350px"
-                    h="450px"
-                    minH="450px"
+                    w="300px"
+                    minW="300px"
+                    h="400px"
+                    minH="400px"
                   />
                 </Box>
-                <Box>
-                  <Heading size="md">{book.title}</Heading>
+                <Box textAlign="start">
+                  <Heading size="md" whiteSpace="normal">
+                    {book.title}
+                  </Heading>
                 </Box>
                 <Box>
                   <Heading size="sm" color="gray">
