@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ height: "100%" }}>
-      <body style={{ height: "100%", overflow: "hidden" }}>
+      <body style={{ height: "100%" }}>
         <Providers>{children}</Providers>
       </body>
     </html>
