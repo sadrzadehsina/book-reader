@@ -24,9 +24,6 @@ export function extractBookMeta(
   return new Promise((resolve, reject) => {
     const book = ePub(file as unknown as ArrayBuffer);
 
-    console.log(book);
-    console.log(book.coverUrl().then(console.log));
-
     Promise.all([
       book.loaded.cover,
       book.loaded.metadata,

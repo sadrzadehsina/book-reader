@@ -9,6 +9,12 @@ export function fileToBlob(file: File): Promise<Blob> {
   });
 }
 
+export function fileToArrayBuffer(file: File): Promise<ArrayBuffer> {
+  return new Promise((resolve) => {
+    file.arrayBuffer().then(resolve);
+  });
+}
+
 export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
   return new Promise((resolve) => {
     const fileReader = new FileReader();
