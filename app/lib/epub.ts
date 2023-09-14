@@ -20,7 +20,7 @@ export function viewBook(
 
 export function extractBookMeta(
   file: File
-): Promise<Omit<Book, "id" | "blob" | "progress">> {
+): Promise<Omit<Book, "id" | "blob" | "progress" | "file">> {
   return new Promise((resolve, reject) => {
     const book = ePub(file as unknown as ArrayBuffer);
 

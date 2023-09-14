@@ -1,8 +1,5 @@
 import { useCallback } from "react";
 
-import type { DisplayedLocation } from "epubjs/types/rendition";
-
-import { blobToArrayBuffer } from "../utils";
 import { viewBook } from "../lib/epub";
 
 import { useRenditionValue } from "../hooks/use-rendition";
@@ -10,6 +7,8 @@ import { useSetRendition } from "../hooks/use-rendition";
 import { useBookValue } from "../hooks/use-book";
 import { useDatabase } from "../context/database";
 import { useDrawer } from "./components/drawer/use-drawer";
+
+import { getBook } from "../actions/get-book";
 
 export function useReader() {
   const rendition = useRenditionValue();
@@ -20,40 +19,33 @@ export function useReader() {
 
   const [_, openTableOfContent] = useDrawer();
 
-  const { updateProgress } = useDatabase();
-
   const next = useCallback(() => {
     if (!rendition) return;
-
-    rendition.next().then(() => {
-      const location: DisplayedLocation = rendition.currentLocation();
-      updateProgress(book.id, location);
-    });
-  }, [book.id, rendition, updateProgress]);
+    rendition.next();
+  }, [rendition]);
 
   const previous = useCallback(() => {
     if (!rendition) return;
-
-    const location: DisplayedLocation = rendition.currentLocation();
-    updateProgress(book.id, location);
     rendition.prev();
-  }, [book.id, rendition, updateProgress]);
+  }, [rendition]);
 
   const view = useCallback(
     async (area: HTMLElement) => {
       if (!book) return;
 
-      const arraybuffer = await blobToArrayBuffer(book.blob);
-      const rendition = await viewBook(area, arraybuffer);
+      const file = await getBook(book.file);
 
-      rendition.display();
+      // @ts-ignore
+      const rendition = await viewBook(area, `/${file}`);
 
-      if (book.progress) {
-        // @ts-ignore
-        rendition.display(book.progress.start.cfi);
-      }
+      rendition.display().then(() => {
+        if (book.progress) {
+          // @ts-ignore
+          rendition.display(book.progress.start.cfi);
+        }
 
-      setRendition(rendition);
+        setRendition(rendition);
+      });
     },
     [book, setRendition]
   );

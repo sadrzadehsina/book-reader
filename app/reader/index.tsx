@@ -16,6 +16,7 @@ export function Reader() {
 
   useEffect(() => {
     reader.view(viewAreaRef.current!);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -21,6 +21,7 @@ export function useSaveBook() {
         cover: meta.cover,
         tableOfContent: meta.tableOfContent,
         progress: null as unknown as DisplayedLocation,
+        // @ts-ignore
         file: book,
       });
     },

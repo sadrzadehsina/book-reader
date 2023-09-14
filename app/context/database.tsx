@@ -8,19 +8,19 @@ import { DisplayedLocation } from "epubjs/types/rendition";
 import { createContext, useContext, ReactNode, useMemo } from "react";
 
 type DatabaseContextType = {
-  saveBook: (book: Book) => Promise<Book>;
+  saveBook: (book: Book) => Promise<Boolean>;
   getBooks: () => Promise<Book[]>;
   updateProgress: (
     bookId: string,
     progress: DisplayedLocation
-  ) => Promise<Book>;
+  ) => Promise<Boolean>;
 };
 
 const DatabaseContext = createContext<DatabaseContextType>({
-  saveBook: (book: Book) => Promise.resolve(null as unknown as Book),
+  saveBook: (book: Book) => Promise.resolve(true),
   getBooks: () => Promise.resolve([]),
   updateProgress: (bookId: string, progress: DisplayedLocation) =>
-    Promise.resolve(null as unknown as Book),
+    Promise.resolve(true),
 });
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {

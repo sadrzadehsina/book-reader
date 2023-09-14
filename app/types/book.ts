@@ -8,5 +8,5 @@ export type Book = {
   cover: string;
   tableOfContent: Array<NavItem>;
   progress: DisplayedLocation;
-  file: File;
+  file: string;
 };

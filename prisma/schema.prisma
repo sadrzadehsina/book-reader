@@ -10,12 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Book {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   author         String
   title          String
   cover          String
   tableOfContent String
   progress       String
-  file           Bytes
+  file           String
 }

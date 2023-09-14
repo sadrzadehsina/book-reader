@@ -7,7 +7,13 @@ import { updateProgress } from "../actions/update-progress";
 export const database = {
   saveBook(book: Book): Promise<Boolean> {
     return new Promise((resolve, reject) => {
-      saveBook(book)
+      const formData = new FormData();
+      formData.append("file", book.file);
+      saveBook({
+        ...book,
+        // @ts-ignore
+        file: formData,
+      })
         .then(() => resolve(true))
         .catch(reject);
     });
@@ -16,7 +22,16 @@ export const database = {
   getBooks(): Promise<[]> {
     return new Promise((resolve, reject) => {
       getBooks()
-        .then(() => resolve([]))
+        .then((books) => {
+          resolve(
+            // @ts-ignore
+            books.map((book) => ({
+              ...book,
+              tableOfContent: JSON.parse(book.tableOfContent),
+              progress: JSON.parse(book.progress),
+            }))
+          );
+        })
         .catch(reject);
     });
   },
@@ -26,7 +41,7 @@ export const database = {
     progress: DisplayedLocation
   ): Promise<Boolean> {
     return new Promise((resolve, reject) => {
-      updateProgress()
+      updateProgress(bookId, JSON.stringify(progress))
         .then(() => resolve(true))
         .catch(reject);
     });

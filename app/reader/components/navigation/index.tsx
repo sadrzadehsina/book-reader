@@ -10,19 +10,38 @@ import {
   LiaAngleLeftSolid,
   LiaAngleRightSolid,
   LiaBarsSolid,
+  LiaSave,
 } from "react-icons/lia";
 import { useReader } from "../../use-reader";
 import { useSetScreen } from "@/app/hooks/use-screen";
 import { useCallback } from "react";
+import { useRenditionValue } from "@/app/hooks/use-rendition";
+import { useBookValue } from "@/app/hooks/use-book";
+
+import { useDatabase } from "@/app/context/database";
+
+import type { DisplayedLocation } from "epubjs/types/rendition";
 
 export function Navigation() {
   const { previous, next, openTableOfContent } = useReader();
+
+  const { updateProgress } = useDatabase();
+
+  const rendition = useRenditionValue();
+
+  const book = useBookValue();
 
   const setScreen = useSetScreen();
 
   const closeBook = useCallback(() => {
     setScreen("dashboard");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const saveProgress = useCallback(() => {
+    const location: DisplayedLocation = rendition.currentLocation();
+    updateProgress(book.id, location);
+  }, [book.id, rendition, updateProgress]);
 
   return (
     <>
@@ -40,6 +59,15 @@ export function Navigation() {
             color="white"
             icon={<LiaBarsSolid />}
             onClick={() => openTableOfContent(true)}
+            _hover={{ backgroundColor: "#000" }}
+          />
+          <IconButton
+            fontSize="24px"
+            aria-label="save"
+            variant="ghost"
+            color="white"
+            icon={<LiaSave />}
+            onClick={saveProgress}
             _hover={{ backgroundColor: "#000" }}
           />
         </VStack>
