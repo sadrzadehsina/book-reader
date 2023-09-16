@@ -7,12 +7,8 @@ import { updateProgress } from "../actions/update-progress";
 export const database = {
   saveBook(book: Book): Promise<Boolean> {
     return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append("file", book.file);
       saveBook({
         ...book,
-        // @ts-ignore
-        file: formData,
       })
         .then(() => resolve(true))
         .catch(reject);

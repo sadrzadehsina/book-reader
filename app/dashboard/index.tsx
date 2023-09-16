@@ -18,7 +18,6 @@ import { useCallback, useEffect } from "react";
 import { useBooksValue } from "../hooks/use-books";
 import { BooksList } from "./components/books-list";
 import { useSaveBook } from "../hooks/use-save-book";
-import { useBookValue } from "../hooks/use-book";
 import { useSelectBook } from "../hooks/use-select-book";
 import { Book } from "../types/book";
 import { useSetScreen } from "../hooks/use-screen";
