@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 
-const path =require('path')
+const path = require('path')
 const Dotenv = require('dotenv-webpack')
 
 const nextConfig = {
+  api: {
+    bodyParser: {
+      sizeLimit: '4mb'
+    }
+  },
   experimental: {
     serverActions: true,
   },
