@@ -8,7 +8,7 @@ import { useBookValue } from "../hooks/use-book";
 import { useDrawer } from "./components/drawer/use-drawer";
 
 import { Dropbox } from "dropbox";
-const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+const dbx = new Dropbox({ accessToken: process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN });
 
 export function useReader() {
   const rendition = useRenditionValue();

@@ -7,7 +7,7 @@ import { useDatabase } from "@/app/context/database";
 import { extractBookMeta } from "@/app/lib/epub";
 
 import { Dropbox } from "dropbox";
-const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+const dbx = new Dropbox({ accessToken: process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN });
 
 export function useSaveBook() {
   const { saveBook } = useDatabase();
