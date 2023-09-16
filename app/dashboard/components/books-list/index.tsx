@@ -19,9 +19,9 @@ export function BooksList({
   onBookClick: (book: Book) => void;
 }) {
   return (
-    <SimpleGrid columns={3} spacing={10}>
+    <SimpleGrid columns={4} spacing={10}>
       {books.map((book) => (
-        <Box key={book.id} h="450">
+        <Box key={book.id} h="500">
           <Button
             variant="unstyled"
             onClick={() => onBookClick(book)}
@@ -29,15 +29,15 @@ export function BooksList({
               color: "#5b4eea",
             }}
           >
-            <Flex flexDir="column" gap="4" align="flex-start" w={300} h={400}>
+            <Flex flexDir="column" gap="4" align="flex-start" w={250} h={400}>
               <Box>
                 <Image
                   src={book.cover}
                   alt={book.title}
                   borderRadius="lg"
                   objectFit="cover"
-                  w="300px"
-                  minW="300px"
+                  w="250px"
+                  minW="250px"
                   h="400px"
                   minH="400px"
                 />
