@@ -8,7 +8,9 @@ import { useBookValue } from "../hooks/use-book";
 import { useDrawer } from "./components/drawer/use-drawer";
 
 import { Dropbox } from "dropbox";
-const dbx = new Dropbox({ accessToken: process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN });
+const dbx = new Dropbox({
+  accessToken: process.env.NEXT_PUBLIC_DROPBOX_ACCESS_TOKEN,
+});
 
 export function useReader() {
   const rendition = useRenditionValue();
@@ -36,14 +38,12 @@ export function useReader() {
       dbx.filesDownload({ path: book.file }).then((response) => {
         // @ts-ignore
         viewBook(area, response.result.fileBlob).then((rendition) => {
-          rendition.display().then(() => {
-            if (book.progress) {
-              // @ts-ignore
-              rendition.display(book.progress.start.cfi);
-            }
-
-            setRendition(rendition);
-          });
+          rendition
+            // @ts-ignore
+            .display(book.progress ? book.progress.start.cfi : undefined)
+            .then(() => {
+              setRendition(rendition);
+            });
         });
       });
     },
