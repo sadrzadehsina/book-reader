@@ -6,7 +6,6 @@ export type Book = {
   author: string;
   title: string;
   cover: string;
-  tableOfContent: Array<NavItem>;
   progress: DisplayedLocation;
   file: string;
 };

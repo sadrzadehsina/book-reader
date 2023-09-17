@@ -23,7 +23,6 @@ export const database = {
             // @ts-ignore
             books.map((book) => ({
               ...book,
-              tableOfContent: JSON.parse(book.tableOfContent),
               progress: JSON.parse(book.progress),
             }))
           );

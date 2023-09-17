@@ -1,6 +1,6 @@
 "use client";
 
-import ePub, { type Rendition } from "epubjs";
+import ePub, { NavItem, type Rendition } from "epubjs";
 
 import type { Book } from "@/app/types/book";
 
@@ -37,6 +37,16 @@ export function extractBookMeta(
           tableOfContent: navigation.toc,
         });
       });
+    });
+  });
+}
+
+export function extractTableOfContent(file: File): Promise<NavItem[]> {
+  return new Promise((resolve, reject) => {
+    const book = ePub(file as unknown as ArrayBuffer);
+
+    book.loaded.navigation.then((navigation) => {
+      resolve(navigation.toc);
     });
   });
 }

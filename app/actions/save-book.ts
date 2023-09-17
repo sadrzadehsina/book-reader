@@ -13,7 +13,6 @@ export async function saveBook(book: Book) {
           title: book.title,
           author: book.author,
           cover: book.cover,
-          tableOfContent: JSON.stringify(book.tableOfContent),
           progress: JSON.stringify(book.progress),
           file: book.file,
         },

@@ -28,7 +28,6 @@ export function useSaveBook() {
             author: meta.author,
             title: meta.title,
             cover: meta.cover,
-            tableOfContent: meta.tableOfContent,
             progress: null as unknown as DisplayedLocation,
             file: response.result.id,
           });

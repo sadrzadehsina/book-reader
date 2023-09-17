@@ -1,24 +1,27 @@
 "use client";
 
-import { useBookValue } from "@/app/hooks/use-book";
+// import { useBookValue } from "@/app/hooks/use-book";
 import { useRenditionValue } from "@/app/hooks/use-rendition";
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { Drawer } from "../drawer";
 import { useDrawer } from "../drawer/use-drawer";
 import { TableOfContentItem } from "./item";
+import { useTableOfContentValue } from "@/app/hooks/use-table-content";
 
 export function TableOfContent() {
-  const book = useBookValue();
+  // const book = useBookValue();
 
   const rendition = useRenditionValue();
 
+  const tableOfContent = useTableOfContentValue();
+
   const [open, setOpen] = useDrawer();
 
-  const tableOfContent = useMemo(() => {
-    if (!book) return [];
+  // const tableOfContent = useMemo(() => {
+  //   if (!book) return [];
 
-    return book.tableOfContent;
-  }, [book]);
+  //   return book.tableOfContent;
+  // }, [book]);
 
   const goToChapter = (href: string) => {
     rendition.display(href);
