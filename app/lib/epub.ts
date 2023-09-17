@@ -24,20 +24,17 @@ export function extractBookMeta(
   return new Promise((resolve, reject) => {
     const book = ePub(file as unknown as ArrayBuffer);
 
-    Promise.all([
-      book.loaded.cover,
-      book.loaded.metadata,
-      book.loaded.navigation,
-    ]).then(([cover, metadata, navigation]) => {
-      book.archive.createUrl(cover, { base64: true }).then((cover) => {
-        resolve({
-          cover,
-          title: metadata.title,
-          author: metadata.creator,
-          tableOfContent: navigation.toc,
+    Promise.all([book.loaded.cover, book.loaded.metadata]).then(
+      ([cover, metadata]) => {
+        book.archive.createUrl(cover, { base64: true }).then((cover) => {
+          resolve({
+            cover,
+            title: metadata.title,
+            author: metadata.creator,
+          });
         });
-      });
-    });
+      }
+    );
   });
 }
 
